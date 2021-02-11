@@ -23,7 +23,7 @@ namespace Business.Concrete
 
         public void Delete(Car car)
         {
-            _carDal.Delete(car);
+             _carDal.Delete(car);
 
         }
 
