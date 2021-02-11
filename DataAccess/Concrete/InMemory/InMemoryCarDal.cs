@@ -7,11 +7,11 @@ using System.Text;
 
 namespace DataAccess.Concrete.InMemory
 {
-    public class CarDal : ICarDal
+    public class InMemoryCarDal : ICarDal
     {
         List<Car> _cars;
 
-        public CarDal()
+        public InMemoryCarDal()
         {
             _cars = new List<Car>
             {
