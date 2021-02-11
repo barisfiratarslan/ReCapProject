@@ -13,5 +13,10 @@ namespace Entities.Concrete
         public DateTime ModelYear { get; set; }
         public decimal DailyPrice { get; set; }
         public string Description { get; set; }
+
+        public override string ToString()
+        {
+            return "ID: " + ID + ", Brand ID: " + BrandID + ", Color ID: " + ColorID + ", Model Year: " + ModelYear + ", Daily Price: " + DailyPrice + ", Description: " + Description;
+        }
     }
 }
