@@ -10,6 +10,14 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            //var result = rentalManager.Add(new Rental { CarID = 2, CustomerID = 1, RentDate = DateTime.Now, ReturnDate = null });
+            var result = rentalManager.UpdateReturnDate(1);
+            Console.WriteLine("İşlem sonucu: " + result.Success + ", " + result.Message);
+        }
+
+        private static void TestI()
+        {
             CarManager carManager = new CarManager(new EfCarDal());
             foreach (var item in carManager.GetCarDetails().Data)
             {
