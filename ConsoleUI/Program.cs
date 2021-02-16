@@ -61,7 +61,7 @@ namespace ConsoleUI
             {
                 Console.WriteLine(car.ToString());
             }
-            foreach (var car in carManager.GetCarsByColorId(1).Data)
+            foreach (var car in carManager.GetCarsByColorID(1).Data)
             {
                 Console.WriteLine(car.ToString());
             }

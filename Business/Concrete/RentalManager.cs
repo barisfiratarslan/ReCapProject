@@ -50,13 +50,13 @@ namespace Business.Concrete
             return new SuccessResult(Messages.RentalUpdated);
         }
 
-        public IResult UpdateReturnDate(int id)
+        public IResult UpdateReturnDate(int ID)
         {
-            if (_rentalDal.GetAll(x => x.CarID == id && x.ReturnDate == null).Count <= 0)
+            if (_rentalDal.GetAll(x => x.CarID == ID && x.ReturnDate == null).Count <= 0)
             {
                 return new ErrorResult(Messages.RentalErrorReturn);
             }
-            var result = _rentalDal.Get(x => x.ID == id);
+            var result = _rentalDal.Get(x => x.ID == ID);
             result.ReturnDate = DateTime.Now.ToString();
             _rentalDal.Update(result);
             return new SuccessResult(Messages.RentalReturn);

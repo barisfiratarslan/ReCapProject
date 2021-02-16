@@ -7,10 +7,10 @@ using System.Text;
 
 namespace Business.Abstract
 {
-    public interface ICarServise
+    public interface ICarService
     {
         IDataResult<List<Car>> GetCarsByBrandID(int ID);
-        IDataResult<List<Car>> GetCarsByColorId(int ID);
+        IDataResult<List<Car>> GetCarsByColorID(int ID);
         IDataResult<Car> GetByID(int ID);
         IDataResult<List<Car>> GetAll();
         IResult Add(Car car);
