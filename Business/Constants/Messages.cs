@@ -39,5 +39,11 @@ namespace Business.Constants
         public static string RentalFailedAdded = "Araba kiralanamaz. Önceki müşteri teslim etmemiş";
         public static string RentalReturn = "Araba teslim edildi.";
         public static string RentalErrorReturn = "Araba önceden teslim edilmiş";
+
+        public static string CarImagesAdded = "Araba resimleri eklendi.";
+        public static string CarImagesDeleted = "Araba resimleri silindi.";
+        public static string CarImagesUpdated = "Araba resimleri güncellendi.";
+        public static string CarImagesListed = "Araba resimleri listelendi.";
+        public static string CarImagesCountError = "Araba resimleri en fazla 5 olabilir";
     }
 }
