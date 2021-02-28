@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -21,8 +22,9 @@ namespace Business.Concrete
             _carImagesDal = carImagesDal;
         }
 
+        [SecuredOperation("carimages.add,admin")]
         [ValidationAspect(typeof(BrandValidator))]
-        public IResult Add(CarImages carImages)
+        public IResult Add(CarImage carImages)
         {
             var result = BusinessRules.Run(CheckCountOfCarImages(carImages.CarID));
             if (result != null)
@@ -33,20 +35,20 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarImagesAdded);
         }
 
-        public IResult Delete(CarImages carImages)
+        public IResult Delete(CarImage carImages)
         {
             _carImagesDal.Delete(carImages);
             return new SuccessResult(Messages.CarImagesDeleted);
         }
 
-        public IDataResult<List<CarImages>> GetAll()
+        public IDataResult<List<CarImage>> GetAll()
         {
-            return new SuccessDataResult<List<CarImages>>(_carImagesDal.GetAll(), Messages.CarImagesListed);
+            return new SuccessDataResult<List<CarImage>>(_carImagesDal.GetAll(), Messages.CarImagesListed);
         }
 
-        public IDataResult<CarImages> GetByID(int ID)
+        public IDataResult<CarImage> GetByID(int ID)
         {
-            return new SuccessDataResult<CarImages>(_carImagesDal.Get(c => c.ID == ID), Messages.CarImagesListed);
+            return new SuccessDataResult<CarImage>(_carImagesDal.Get(c => c.ID == ID), Messages.CarImagesListed);
         }
 
         public IDataResult<List<string>> GetCarImagesByCarID(int carID)
@@ -65,7 +67,7 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(BrandValidator))]
-        public IResult Update(CarImages carImages)
+        public IResult Update(CarImage carImages)
         {
             _carImagesDal.Update(carImages);
             return new SuccessResult(Messages.CarImagesUpdated);

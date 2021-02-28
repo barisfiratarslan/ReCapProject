@@ -61,7 +61,7 @@ namespace WepAPI.Controllers
             {
                 return BadRequest("Sadece resim dosyası yükleyebilirsiniz");
             }
-            CarImages carImages = new CarImages();
+            CarImage carImages = new CarImage();
             carImages.CarID = carID;
             carImages.ImagePath = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
             carImages.Date = DateTime.Now;
