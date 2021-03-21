@@ -3,6 +3,7 @@ using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Aspects.Caching;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -24,6 +25,7 @@ namespace Business.Concrete
 
         [SecuredOperation("carimages.add,admin")]
         [ValidationAspect(typeof(BrandValidator))]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Add(CarImage carImages)
         {
             var result = BusinessRules.Run(CheckCountOfCarImages(carImages.CarID));
@@ -41,6 +43,8 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarImagesDeleted);
         }
 
+        [CacheAspect]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IDataResult<List<CarImage>> GetAll()
         {
             return new SuccessDataResult<List<CarImage>>(_carImagesDal.GetAll(), Messages.CarImagesListed);
