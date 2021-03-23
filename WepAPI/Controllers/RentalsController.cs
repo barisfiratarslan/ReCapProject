@@ -42,6 +42,17 @@ namespace WepAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("getrentaldetails")]
+        public IActionResult GetRentalDetails()
+        {
+            var result = _rentalServise.GetRentalDetails();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
         public IActionResult UpdateReturnDate(int ID)
         {
             var result = _rentalServise.UpdateReturnDate(ID);
