@@ -34,7 +34,7 @@ namespace Business.Concrete
 
         public IResult Delete(Car car)
         {
-             _carDal.Delete(car);
+            _carDal.Delete(car);
             return new SuccessResult(Messages.CarDeleted);
         }
 
@@ -53,6 +53,26 @@ namespace Business.Concrete
         public IDataResult<List<CarDetailDTO>> GetCarDetails()
         {
             return new SuccessDataResult<List<CarDetailDTO>>(_carDal.GetCarDetails(), Messages.CarListed);
+        }
+
+        public IDataResult<List<CarDetailDTO>> GetCarDetailsByBrand(int brandID)
+        {
+            return new SuccessDataResult<List<CarDetailDTO>>(_carDal.GetCarDetailsByBrand(brandID), Messages.CarListed);
+        }
+
+        public IDataResult<CarDetailDTO> GetCarDetailsByCar(int carID)
+        {
+            return new SuccessDataResult<CarDetailDTO>(_carDal.GetCarDetailsByCar(carID), Messages.CarListed);
+        }
+
+        public IDataResult<List<CarDetailDTO>> GetCarDetailsByColor(int colorID)
+        {
+            return new SuccessDataResult<List<CarDetailDTO>>(_carDal.GetCarDetailsByColor(colorID), Messages.CarListed);
+        }
+
+        public IDataResult<List<CarDetailDTO>> GetCarDetailsByColorAndBrand(int colorID, int brandID)
+        {
+            return new SuccessDataResult<List<CarDetailDTO>>(_carDal.GetCarDetailsByColorAndBrand(colorID, brandID), Messages.CarListed);
         }
 
         public IDataResult<List<Car>> GetCarsByBrandID(int ID)

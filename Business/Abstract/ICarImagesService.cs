@@ -10,7 +10,7 @@ namespace Business.Abstract
     {
         IDataResult<CarImage> GetByID(int ID);
         IDataResult<List<CarImage>> GetAll();
-        IDataResult<List<string>> GetCarImagesByCarID(int carID);
+        IDataResult<List<CarImage>> GetCarImagesByCarID(int carID);
         IResult Add(CarImage carImages);
         IResult Update(CarImage carImages);
         IResult Delete(CarImage carImages);

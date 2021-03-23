@@ -55,19 +55,14 @@ namespace Business.Concrete
             return new SuccessDataResult<CarImage>(_carImagesDal.Get(c => c.ID == ID), Messages.CarImagesListed);
         }
 
-        public IDataResult<List<string>> GetCarImagesByCarID(int carID)
+        public IDataResult<List<CarImage>> GetCarImagesByCarID(int carID)
         {
-            List<string> list = new List<string>(); 
             var result = _carImagesDal.GetAll(c => c.CarID == carID);
             if (result.Count == 0)
             {
-                return new SuccessDataResult<List<string>>(new List<string> { @"~CarImages\default.jpg" }, Messages.CarImagesListed);
+                return new SuccessDataResult<List<CarImage>>(new List<CarImage> { new CarImage { ImagePath = @"~CarImages\default.jpg" } }, Messages.CarImagesListed);
             }
-            foreach (var item in result)
-            {
-                list.Add(item.ImagePath);
-            }
-            return new SuccessDataResult<List<string>>(list, Messages.CarImagesListed);
+            return new SuccessDataResult<List<CarImage>>(result, Messages.CarImagesListed);
         }
 
         [ValidationAspect(typeof(BrandValidator))]

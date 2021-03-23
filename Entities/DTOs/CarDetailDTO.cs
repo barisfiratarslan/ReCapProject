@@ -13,6 +13,7 @@ namespace Entities.DTOs
         public string ColorName { get; set; }
         public decimal DailyPrice { get; set; }
         public DateTime ModelYear { get; set; }
+        public string ImagePath { get; set; }
 
         public override string ToString()
         {

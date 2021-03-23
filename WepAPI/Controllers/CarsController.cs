@@ -46,10 +46,10 @@ namespace WepAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getcarsbycolorid")]
-        public IActionResult GetCarsByColorID(int ID)
+        [HttpGet("getcarsbycolor")]
+        public IActionResult GetCarsByColor(int colorID)
         {
-            var result = _carServise.GetCarsByColorID(ID);
+            var result = _carServise.GetCarDetailsByBrand(colorID);
             if (result.Success)
             {
                 return Ok(result);
@@ -57,10 +57,32 @@ namespace WepAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getcarsbybrandid")]
-        public IActionResult GetCarsByBrandID(int ID)
+        [HttpGet("getcarsbybrand")]
+        public IActionResult GetCarsByBrand(int brandID)
         {
-            var result = _carServise.GetCarsByBrandID(ID);
+            var result = _carServise.GetCarDetailsByBrand(brandID);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getcarsbycar")]
+        public IActionResult GetCarsByCar(int carID)
+        {
+            var result = _carServise.GetCarDetailsByCar(carID);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getcarsbycolorandbrand")]
+        public IActionResult GetCarsByColorAndBrand(int colorID, int brandID)
+        {
+            var result = _carServise.GetCarDetailsByColorAndBrand(colorID, brandID);
             if (result.Success)
             {
                 return Ok(result);
@@ -83,9 +105,9 @@ namespace WepAPI.Controllers
         public IActionResult Add(Car car)
         {
             var result = _carServise.Add(car);
-            if (result.Success) 
-            { 
-                return Ok(result); 
+            if (result.Success)
+            {
+                return Ok(result);
             }
             return BadRequest();
         }
@@ -94,9 +116,9 @@ namespace WepAPI.Controllers
         public IActionResult Delete(Car car)
         {
             var result = _carServise.Delete(car);
-            if (result.Success) 
-            { 
-                return Ok(result); 
+            if (result.Success)
+            {
+                return Ok(result);
             }
             return BadRequest();
         }
@@ -105,9 +127,9 @@ namespace WepAPI.Controllers
         public IActionResult Update(Car car)
         {
             var result = _carServise.Update(car);
-            if (result.Success) 
-            { 
-                return Ok(result); 
+            if (result.Success)
+            {
+                return Ok(result);
             }
             return BadRequest();
         }
