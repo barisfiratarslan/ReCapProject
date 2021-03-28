@@ -53,6 +53,17 @@ namespace WepAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpPost("checkdate")]
+        public IActionResult CheckDate(Rental rental)
+        {
+            var result = _rentalServise.CheckDate(rental);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
         public IActionResult UpdateReturnDate(int ID)
         {
             var result = _rentalServise.UpdateReturnDate(ID);
@@ -68,7 +79,7 @@ namespace WepAPI.Controllers
         {
             var result = _rentalServise.Add(rental);
             if (result.Success) { return Ok(result); }
-            return BadRequest();
+            return BadRequest(result);
         }
 
         [HttpPost("delete")]

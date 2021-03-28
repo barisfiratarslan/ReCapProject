@@ -51,10 +51,8 @@ namespace DataAccess.Concrete.EntityFramework
                              on car.ColorID equals color.ID
                              join brand in context.Brand
                              on car.BrandID equals brand.ID
-                             join carImage in context.CarImages
-                             on car.ID equals carImage.CarID
                              where car.ID == carID
-                             select new CarDetailDTO { ID = car.ID, BrandName = brand.Name, CarName = car.Name, ColorName = color.Name, DailyPrice = car.DailyPrice, ModelYear = car.ModelYear, ImagePath = carImage.ImagePath};
+                             select new CarDetailDTO { ID = car.ID, BrandName = brand.Name, CarName = car.Name, ColorName = color.Name, DailyPrice = car.DailyPrice, ModelYear = car.ModelYear};
                 return result.FirstOrDefault();
             }
         }

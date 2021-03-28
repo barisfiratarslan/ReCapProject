@@ -10,6 +10,7 @@ using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -23,7 +24,7 @@ namespace Business.Concrete
             _rentalDal = rentalDal;
         }
 
-        [SecuredOperation("rental.add,admin")]
+        //[SecuredOperation("rental.add,admin")]
         [ValidationAspect(typeof(RentalValidator))]
         [CacheRemoveAspect("IRentalService.Get")]
         public IResult Add(Rental rental)
@@ -33,6 +34,16 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.RentalFailedAdded);
             }
             _rentalDal.Add(rental);
+            return new SuccessResult(Messages.RentalAdded);
+        }
+
+        public IResult CheckDate(Rental rental)
+        {
+            var result = _rentalDal.GetAll();
+            if (result.Where(x => x.CarID == rental.CarID && (rental.RentDate.Ticks <= Convert.ToDateTime(x.ReturnDate).Ticks && rental.RentDate.Ticks >= x.RentDate.Ticks) || (Convert.ToDateTime(rental.ReturnDate).Ticks <= Convert.ToDateTime(x.ReturnDate).Ticks && Convert.ToDateTime(rental.ReturnDate).Ticks >= x.RentDate.Ticks) ||(rental.RentDate.Ticks <= x.RentDate.Ticks && Convert.ToDateTime(rental.ReturnDate).Ticks >= Convert.ToDateTime(x.ReturnDate).Ticks)).Any())
+            {
+                return new ErrorResult(Messages.RentalFailedAdded);
+            }
             return new SuccessResult(Messages.RentalAdded);
         }
 
@@ -73,7 +84,7 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.RentalErrorReturn);
             }
             var result = _rentalDal.Get(x => x.ID == ID);
-            result.ReturnDate = DateTime.Now.ToString();
+            result.ReturnDate = DateTime.Now;
             _rentalDal.Update(result);
             return new SuccessResult(Messages.RentalReturn);
         }
