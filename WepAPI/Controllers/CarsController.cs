@@ -109,7 +109,7 @@ namespace WepAPI.Controllers
             {
                 return Ok(result);
             }
-            return BadRequest();
+            return BadRequest(result);
         }
 
         [HttpPost("delete")]

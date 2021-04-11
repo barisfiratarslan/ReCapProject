@@ -63,7 +63,7 @@ namespace WepAPI.Controllers
         {
             var result = _brandServise.Update(brand);
             if (result.Success) { return Ok(result); }
-            return BadRequest();
+            return BadRequest(result.Message);
         }
     }
 }
