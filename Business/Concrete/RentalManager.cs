@@ -4,6 +4,7 @@ using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Aspects.Caching;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -18,22 +19,30 @@ namespace Business.Concrete
     public class RentalManager : IRentalService
     {
         IRentalDal _rentalDal;
+        ICustomerDal _customerDal;
+        ICarDal _carDal;
 
-        public RentalManager(IRentalDal rentalDal)
+        public RentalManager(IRentalDal rentalDal, ICustomerDal customerDal, ICarDal carDal)
         {
             _rentalDal = rentalDal;
-        }
+            _customerDal = customerDal;
+            _carDal = carDal;
+        } 
 
         //[SecuredOperation("rental.add,admin")]
         [ValidationAspect(typeof(RentalValidator))]
         [CacheRemoveAspect("IRentalService.Get")]
         public IResult Add(Rental rental)
         {
-            if (_rentalDal.GetAll(x => x.CarID == rental.CarID && x.ReturnDate == null).Count > 0)
+            IResult result = BusinessRules.Run(checkFindeksPoint(rental.CustomerID, rental.CarID),checkRent(rental.CarID));
+            if (result != null)
             {
-                return new ErrorResult(Messages.RentalFailedAdded);
+                return result;
             }
             _rentalDal.Add(rental);
+            var updateCustomer = _customerDal.Get(x => x.ID == rental.CustomerID);
+            updateCustomer.findeksPoint = updateCustomer.findeksPoint + 100;
+            _customerDal.Update(updateCustomer);
             return new SuccessResult(Messages.RentalAdded);
         }
 
@@ -87,6 +96,24 @@ namespace Business.Concrete
             result.ReturnDate = DateTime.Now;
             _rentalDal.Update(result);
             return new SuccessResult(Messages.RentalReturn);
+        }
+
+        private IResult checkRent(int carID)
+        {
+            if (_rentalDal.GetAll(x => x.CarID == carID && x.ReturnDate == null).Count > 0)
+            {
+                return new ErrorResult(Messages.RentalFailedAdded);
+            }
+            return new SuccessResult();
+        }
+
+        private IResult checkFindeksPoint(int customerID, int carID)
+        {
+            if (_customerDal.Get(x => x.ID == customerID).findeksPoint >= _carDal.Get(x=>x.ID==carID).minFindeksPoint)
+            {
+                return new SuccessResult();
+            }
+            return new ErrorResult(Messages.insufficientFindeksPoint);
         }
     }
 }

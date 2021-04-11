@@ -10,5 +10,6 @@ namespace Entities.Concrete
         public int ID { get; set; }
         public int UserID { get; set; }
         public string CompanyName { get; set; }
+        public int findeksPoint { get; set; }
     }
 }

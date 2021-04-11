@@ -62,5 +62,6 @@ namespace Business.Constants
         public static string CreditCarPayment = "Ödeme başarıyla gerçekleşti.";
         public static string CreditCardBalancaError = "Yeterli bakiyeniz bulunmamaktadır.";
         public static string CreditCardInfoError = "Kart bilgileriniz hatalı";
+        public static string insufficientFindeksPoint = "Yeterli findeks puanınız yok";
     }
 }

@@ -13,6 +13,7 @@ namespace Entities.Concrete
         public string Name { get; set; }
         public DateTime ModelYear { get; set; }
         public decimal DailyPrice { get; set; }
+        public int minFindeksPoint { get; set; }
 
         public override string ToString()
         {

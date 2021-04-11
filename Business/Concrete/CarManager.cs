@@ -28,6 +28,8 @@ namespace Business.Concrete
         [CacheRemoveAspect("ICarService.Get")]
         public IResult Add(Car car)
         {
+            Random random = new Random();
+            car.minFindeksPoint = random.Next(0, 1900);
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
         }

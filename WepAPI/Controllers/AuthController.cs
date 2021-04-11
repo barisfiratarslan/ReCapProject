@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Entities.Concrete;
 using Entities.Concrete;
 using Entities.DTOs;
 using Microsoft.AspNetCore.Http;
@@ -15,10 +16,12 @@ namespace WepAPI.Controllers
     public class AuthController : Controller
     {
         private IAuthService _authService;
+        private IUserService _userService;
 
-        public AuthController(IAuthService authService)
+        public AuthController(IAuthService authService,IUserService userService)
         {
             _authService = authService;
+            _userService = userService;
         }
 
         [HttpPost("login")]
@@ -31,9 +34,10 @@ namespace WepAPI.Controllers
             }
 
             var result = _authService.CreateAccessToken(userToLogin.Data);
+            result.Data.userName = userToLogin.Data.FirstName;
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
 
             return BadRequest(result.Message);
@@ -50,12 +54,30 @@ namespace WepAPI.Controllers
 
             var registerResult = _authService.Register(userForRegisterDto, userForRegisterDto.Password);
             var result = _authService.CreateAccessToken(registerResult.Data);
+            result.Data.userName = userForRegisterDto.FirstName;
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
 
             return BadRequest(result.Message);
+        }
+
+        [HttpGet("getuserbyname")]
+        public ActionResult GetUserByName(string firstName)
+        {
+            return Ok(_userService.GetByName(firstName));
+        }
+
+        [HttpPost("")]
+        public ActionResult UpdateUser(User user,string password)
+        {
+            var result = _authService.UpdateUser(user,password);
+            if (!result.Success)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
         }
     }
 }
