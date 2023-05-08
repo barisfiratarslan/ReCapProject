@@ -28,9 +28,6 @@ Proje çalıştırıldığında, kullanıcılar ana sayfaya yönlendirilirler. A
 ## Katkıda Bulunma
 Bu proje açık kaynaklıdır ve herkes tarafından katkıda bulunulabilir. Herhangi bir iyileştirme veya özellik eklemek isterseniz, lütfen bir pull request gönderin.
 
-## Lisans
-Bu proje MIT lisansı altında lisanslanmıştır. Daha fazla bilgi için "LICENSE" dosyasını okuyun.
-
 ## İletişim
 Proje ile ilgili herhangi bir sorunuz veya öneriniz varsa, lütfen bir issue oluşturun veya bana e-posta gönderin.
 
